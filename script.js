@@ -1,7 +1,7 @@
 // File: script.js (Completely Revised)
 
 // ⬇️ PASTE YOUR PUBLIC PLAYLIST ID HERE ⬇️
-const PLAYLIST_ID = 'https://music.youtube.com/playlist?list=PLUBkN8uE6ti6-CoU9ED8jQwani8Sb_a0h';
+const PLAYLIST_ID = 'https://music.youtube.com/playlist?list=PLUBkN8uE6ti6-CoU9ED8jQwani8Sb_a0h&si=eZ44it-VcxLqRMIS';
 
 // --- DOM ELEMENTS ---
 const playlistDiv = document.getElementById('playlist');
@@ -91,4 +91,5 @@ function playVideo(videoId) {
     } else {
         console.error("Player is not ready.");
     }
+
 }
