@@ -1,4 +1,4 @@
-// File: script.js (Final Corrected Version)
+// File: script.js (Final Robust Version)
 
 // ⬇️ PASTE YOUR PUBLIC PLAYLIST ID HERE ⬇️
 const PLAYLIST_ID = 'PLUBkN8uE6ti6-CoU9ED8jQwani8Sb_a0h';
@@ -11,31 +11,25 @@ const playlistTitleH1 = document.getElementById('playlist-title');
 let player; // To hold the YouTube player instance
 
 // --- INITIALIZATION ---
+// On load, we ONLY start loading the YouTube player API.
 window.onload = function() {
     loadYouTubePlayerAPI();
-    getPlaylistVideos();
 };
 
 /**
- * Fetches videos by calling OUR backend function, not Google directly.
+ * Fetches videos by calling OUR backend function.
  */
 async function getPlaylistVideos() {
-    // This is the endpoint for the function we created above
     const ourApiUrl = `/.netlify/functions/youtube?playlistId=${PLAYLIST_ID}`;
-
     try {
         const response = await fetch(ourApiUrl);
         const data = await response.json();
-        
-        // The YouTube data is inside the 'items' property
         const items = data.items;
 
         if (items && items.length > 0) {
             displayPlaylist(items);
-            // Load and play the first video by default
-            if (player) {
-                player.loadVideoById(items[0].snippet.resourceId.videoId);
-            }
+            // The player is guaranteed to be ready here, so we can load the video.
+            player.loadVideoById(items[0].snippet.resourceId.videoId);
         } else {
             playlistDiv.innerHTML = '<p>No videos found in this playlist.</p>';
         }
@@ -78,8 +72,7 @@ function loadYouTubePlayerAPI() {
 }
 
 /**
- * This function creates the YouTube player.
- * The 'autoplay' and 'mute' parameters were added to fix browser autoplay policies.
+ * This function is the main entry point after the player is ready.
  */
 window.onYouTubeIframeAPIReady = function() {
     player = new YT.Player('player', {
@@ -87,10 +80,21 @@ window.onYouTubeIframeAPIReady = function() {
         width: '100%',
         playerVars: {
             'playsinline': 1,
-            'autoplay': 1, // Tell the player to autoplay
-            'mute': 1      // Start muted to allow autoplay
+            'autoplay': 1,
+            'mute': 1
+        },
+        events: {
+            // We'll wait for the 'onReady' event before fetching the playlist.
+            'onReady': onPlayerReady
         }
     });
+}
+
+/**
+ * Once the player is fully ready, we will finally fetch the video list.
+ */
+function onPlayerReady(event) {
+    getPlaylistVideos();
 }
 
 /**
