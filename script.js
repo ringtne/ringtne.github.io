@@ -34,7 +34,6 @@ async function getPlaylistVideos() {
             displayPlaylist(items);
             // Load and play the first video by default
             if (player) {
-                // This line was changed to automatically play the first video
                 player.loadVideoById(items[0].snippet.resourceId.videoId);
             }
         } else {
@@ -48,7 +47,7 @@ async function getPlaylistVideos() {
 
 
 /**
- * Renders the fetched playlist items on the page. (This function is the same as before)
+ * Renders the fetched playlist items on the page.
  */
 function displayPlaylist(items) {
     playlistDiv.innerHTML = ''; // Clear previous items
@@ -69,7 +68,7 @@ function displayPlaylist(items) {
     });
 }
 
-// --- YOUTUBE IFRAME PLAYER API (These functions are the same as before) ---
+// --- YOUTUBE IFRAME PLAYER API ---
 
 function loadYouTubePlayerAPI() {
     const tag = document.createElement('script');
@@ -78,14 +77,25 @@ function loadYouTubePlayerAPI() {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
+/**
+ * This function creates the YouTube player.
+ * The 'autoplay' and 'mute' parameters were added to fix browser autoplay policies.
+ */
 window.onYouTubeIframeAPIReady = function() {
     player = new YT.Player('player', {
         height: '100%',
         width: '100%',
-        playerVars: { 'playsinline': 1 }
+        playerVars: {
+            'playsinline': 1,
+            'autoplay': 1, // Tell the player to autoplay
+            'mute': 1      // Start muted to allow autoplay
+        }
     });
 }
 
+/**
+ * Plays a new video when a user clicks on an item in the playlist.
+ */
 function playVideo(videoId) {
     if (player && typeof player.loadVideoById === 'function') {
         player.loadVideoById(videoId);
