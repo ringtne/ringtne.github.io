@@ -1,14 +1,9 @@
-// File: netlify/functions/youtube.js
+// File: netlify/functions/youtube.js (Updated for Debugging)
 
-// Using node-fetch to make the API request. You'll need to install it.
 import fetch from 'node-fetch';
 
-// The main function that Netlify will run
 exports.handler = async function(event, context) {
-  // Get the secret API key from the environment variables
   const API_KEY = process.env.YOUTUBE_API_KEY;
-  
-  // Get the playlist ID passed from the front-end
   const PLAYLIST_ID = event.queryStringParameters.playlistId;
 
   if (!PLAYLIST_ID) {
@@ -24,9 +19,13 @@ exports.handler = async function(event, context) {
     const response = await fetch(API_URL);
     const data = await response.json();
 
+    // --- DEBUGGING LINE ---
+    // This will print the full response from YouTube into your Netlify log.
+    console.log(JSON.stringify(data, null, 2));
+
     return {
       statusCode: 200,
-      body: JSON.stringify(data), // Pass the YouTube data back to the front-end
+      body: JSON.stringify(data),
     };
   } catch (error) {
     return {
