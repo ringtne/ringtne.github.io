@@ -1,4 +1,4 @@
-// File: script.js (Completely Revised)
+// File: script.js (Final Corrected Version)
 
 // ⬇️ PASTE YOUR PUBLIC PLAYLIST ID HERE ⬇️
 const PLAYLIST_ID = 'PLUBkN8uE6ti6-CoU9ED8jQwani8Sb_a0h';
@@ -32,9 +32,10 @@ async function getPlaylistVideos() {
 
         if (items && items.length > 0) {
             displayPlaylist(items);
-            // Cue the first video by default
+            // Load and play the first video by default
             if (player) {
-                player.cueVideoById(items[0].snippet.resourceId.videoId);
+                // This line was changed to automatically play the first video
+                player.loadVideoById(items[0].snippet.resourceId.videoId);
             }
         } else {
             playlistDiv.innerHTML = '<p>No videos found in this playlist.</p>';
@@ -91,6 +92,4 @@ function playVideo(videoId) {
     } else {
         console.error("Player is not ready.");
     }
-
 }
-
