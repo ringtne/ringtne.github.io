@@ -1,6 +1,6 @@
-// File: netlify/functions/youtube.js (Updated for Debugging)
+// File: netlify/functions/youtube.js (Final Version)
 
-import fetch from 'node-fetch';
+const fetch = require('node-fetch');
 
 exports.handler = async function(event, context) {
   const API_KEY = process.env.YOUTUBE_API_KEY;
@@ -18,10 +18,6 @@ exports.handler = async function(event, context) {
   try {
     const response = await fetch(API_URL);
     const data = await response.json();
-
-    // --- DEBUGGING LINE ---
-    // This will print the full response from YouTube into your Netlify log.
-    console.log(JSON.stringify(data, null, 2));
 
     return {
       statusCode: 200,
