@@ -1,7 +1,8 @@
+
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #121212;
-    color: #ffffff;
+    background-color: #f9f5f0; /* Nude beige */
+    color: #4e4b46; /* Warm taupe for text */
     margin: 0;
     padding: 20px;
     display: flex;
@@ -14,11 +15,15 @@ body {
     width: 100%;
     max-width: 1200px;
     text-align: center;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
 }
 
 h1, h2 {
-    font-weight: 700;
-    color: #1DB954; /* Spotify-like green */
+    font-weight: 500;
+    color: #7b6f64; /* Muted coffee brown */
 }
 
 #main-content {
@@ -32,11 +37,11 @@ h1, h2 {
 #player-container {
     flex: 3;
     position: relative;
-    padding-bottom: 35.25%; /* 16:9 aspect ratio */
+    padding-bottom: 35.25%;
     height: 0;
     overflow: hidden;
-    background-color: #000;
-    border-radius: 8px;
+    background-color: #e8e1d9; /* Light taupe */
+    border-radius: 12px;
 }
 
 #player {
@@ -49,11 +54,12 @@ h1, h2 {
 
 #playlist-container {
     flex: 2;
-    background-color: #181818;
-    border-radius: 8px;
-    padding: 10px 20px;
+    background-color: #fff7f2;
+    border-radius: 12px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
+    border: 1px solid #f0e6df;
 }
 
 #playlist {
@@ -66,20 +72,22 @@ h1, h2 {
     align-items: center;
     padding: 10px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 8px;
     transition: background-color 0.2s ease;
     text-align: left;
+    border: 1px solid transparent;
 }
 
 .playlist-item:hover {
-    background-color: #282828;
+    background-color: #f2e9e1;
+    border-color: #e2d6cf;
 }
 
 .playlist-item img {
     width: 80px;
     height: 60px;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: 6px;
     margin-right: 15px;
 }
 
@@ -87,4 +95,5 @@ h1, h2 {
     margin: 0;
     font-size: 14px;
     flex-grow: 1;
+    color: #5c564f;
 }
