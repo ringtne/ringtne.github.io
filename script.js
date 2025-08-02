@@ -1,4 +1,4 @@
-// File: script.js (Final Robust Version)
+// File: script.js (Final Corrected Version with Official API URL)
 
 // ⬇️ PASTE YOUR PUBLIC PLAYLIST ID HERE ⬇️
 const PLAYLIST_ID = 'PLUBkN8uE6ti6-CoU9ED8jQwani8Sb_a0h';
@@ -11,7 +11,6 @@ const playlistTitleH1 = document.getElementById('playlist-title');
 let player; // To hold the YouTube player instance
 
 // --- INITIALIZATION ---
-// On load, we ONLY start loading the YouTube player API.
 window.onload = function() {
     loadYouTubePlayerAPI();
 };
@@ -28,7 +27,6 @@ async function getPlaylistVideos() {
 
         if (items && items.length > 0) {
             displayPlaylist(items);
-            // The player is guaranteed to be ready here, so we can load the video.
             player.loadVideoById(items[0].snippet.resourceId.videoId);
         } else {
             playlistDiv.innerHTML = '<p>No videos found in this playlist.</p>';
@@ -66,7 +64,8 @@ function displayPlaylist(items) {
 
 function loadYouTubePlayerAPI() {
     const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/playlist?list=PL...";
+    // THIS IS THE CORRECTED LINE
+    tag.src = "https://www.youtube.com/iframe_api";
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
@@ -84,7 +83,6 @@ window.onYouTubeIframeAPIReady = function() {
             'mute': 1
         },
         events: {
-            // We'll wait for the 'onReady' event before fetching the playlist.
             'onReady': onPlayerReady
         }
     });
